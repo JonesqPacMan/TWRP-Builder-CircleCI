@@ -10,25 +10,25 @@ parameters:
     default: "twrp-12.1"
   device_tree: # Device tree URL
     type: string
-    default: "https://github.com/cd-Crypton/custom_recovery_tree_realme_nashc"
+    default: "https://github.com/JonesqPacMan/device_xiaomi_aristotle-TWRP"
   device_branch: # Device tree branch
     type: string
     default: "android-staging"
   device_name: # Device name
     type: string
-    default: "nashc"
+    default: "aristotle"
   device_path: # Device path
     type: string
-    default: "device/realme/nashc"
+    default: "device/xiaomi/aristotle"
   device_makefile: # Device makefile: twrp or omni + _devicename
     type: string
-    default: "twrp_nashc"
+    default: "twrp_aristotle"
   build_target: # Build target: boot, recovery, vendorboot
     type: string
-    default: "recovery"
+    default: "vendorboot"
 
 jobs:
-  recovery:
+  vendorboot:
     machine:
       image: ubuntu-2204:current
     resource_class: large
@@ -90,9 +90,9 @@ jobs:
             - run: 
                 name: Sync Manifest
                 command: |
-                  mkdir -p ~/android/recovery && cd ~/android/recovery
-                  git config --global user.name "Carlo Dandan"
-                  git config --global user.email "carlodandan.personal@proton.me"
+                  mkdir -p ~/android/vendorboot && cd ~/android/vendorboot
+                  git config --global user.name "Adi Ardiansyah"
+                  git config --global user.email "adiardiansyah.official@gmail.com"
                   repo init --depth=1 -u ${MANIFEST} -b ${MANIFEST_BRANCH}
                   repo sync -j$(nproc --all) --force-sync
                   echo "Done syncing manifest source."
@@ -100,24 +100,24 @@ jobs:
             - run:
                 name: Device Tree
                 command: |
-                   cd ~/android/recovery
+                   cd ~/android/vendorboot
                    git clone --depth=1 ${DEVICE_TREE} -b ${DEVICE_BRANCH} ${DEVICE_PATH}
                    echo "Done cloning device tree."
     
             - run:
-                name: Build Recovery
+                name: Build Vendor Boot
                 command: |
-                   cd ~/android/recovery
+                   cd ~/android/vendorboot
                    source build/envsetup.sh
                    export ALLOW_MISSING_DEPENDENCIES=true
                    lunch ${DEVICE_MAKEFILE}-eng && make ${BUILD_TARGET}image
                    echo "Your TWRP is now ready. Please check in Artifacts section."
 
             - run:
-                name: Move Recovery # This is for uploading as artifacts
+                name: Move Vendor Boot # This is for uploading as artifacts
                 command: |
                    mkdir -p ~/android/twrp
-                   cd ~/android/recovery/out/target/product/${DEVICE_NAME}
+                   cd ~/android/vendorboot/out/target/product/${DEVICE_NAME}
                    mv ${BUILD_TARGET}.img ~/android/twrp/twrp.img
 
             - store_artifacts:
@@ -127,4 +127,4 @@ jobs:
 workflows:
   build:
     jobs:
-      - recovery
+      - vendorboot
