@@ -118,11 +118,10 @@ jobs:
                 command: |
                    mkdir -p ~/android/twrp
                    cd ~/android/vendorboot/out/target/product/${DEVICE_NAME}
-                   mv ${BUILD_TARGET}.img ~/android/twrp/twrp.img
-
+                   mv vendor_boot.img ~/android/twrp/twrp-12.1-a13-aristotle-vendor_boot.img
             - store_artifacts:
-                path: ~/android/twrp/twrp.img
-                destination: twrp.img
+                path: ~/android/twrp/twrp-12.1-a13-aristotle-vendor_boot.img
+                destination: twrp-12.1-a13-aristotle-vendor_boot.img
              
 workflows:
   build:
