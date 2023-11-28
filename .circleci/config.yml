@@ -13,7 +13,7 @@ parameters:
     default: "https://github.com/JonesqPacMan/device_xiaomi_aristotle-TWRP"
   device_branch: # Device tree branch
     type: string
-    default: "android-staging"
+    default: "TWRP-12.1_A13"
   device_name: # Device name
     type: string
     default: "aristotle"
