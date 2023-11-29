@@ -112,7 +112,7 @@ jobs:
                    repopick 5743
                    export ALLOW_MISSING_DEPENDENCIES=true
                    lunch ${DEVICE_MAKEFILE}-eng && make ${BUILD_TARGET}image
-                   echo "Your TWRP is now ready. Please check in Artifacts section."
+                   echo "Your TWRP is now ready. Please check in Artifacts section.."
 
             - run:
                 name: Move Vendor Boot # This is for uploading as artifacts
