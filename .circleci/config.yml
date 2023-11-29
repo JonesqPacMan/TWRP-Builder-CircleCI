@@ -109,6 +109,7 @@ jobs:
                 command: |
                    cd ~/android/vendorboot
                    source build/envsetup.sh
+                   repopick 5743
                    export ALLOW_MISSING_DEPENDENCIES=true
                    lunch ${DEVICE_MAKEFILE}-eng && make ${BUILD_TARGET}image
                    echo "Your TWRP is now ready. Please check in Artifacts section."
