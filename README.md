@@ -9,4 +9,4 @@ Build your own TWRP using CircleCI.
 # Build Notes
 * In `.circleci/config.yml`, change the value of parameters.
 * Build will automatically start after every commit.
-* You can find TWRP image in Artifacts section
+* You can find TWRP image in Artifacts section.
